@@ -1,4 +1,4 @@
-# EEG_Reader — Arduino Library
+# BrainIO — Arduino Library
 ### For the Instructables DIY EEG Circuit (AD620AN + TL084CN)
 
 ---

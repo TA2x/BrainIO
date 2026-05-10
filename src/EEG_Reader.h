@@ -1,24 +1,9 @@
-#ifndef EEG_READER_H
-#define EEG_READER_H
+#ifndef BRAUNIO_H
+#define BRAINIO_H
 
 #include <Arduino.h>
 
-// ═══════════════════════════════════════════════════════════════════════════
-//  EEG_Reader — for the Instructables DIY EEG circuit (AD620AN + TL084CN)
-//
-//  The circuit already does all the hard analog work:
-//    Stage 1 : AD620AN instrumentation amp — gain ~89x (560Ω resistor)
-//    Stage 2 : 60 Hz notch filter  (kills power-line hum)
-//    Stage 3 : 7 Hz high-pass filter (removes slow skin/DC drift)
-//    Stage 4 : 31 Hz low-pass filter (removes noise above beta waves)
-//    Stage 5 : variable gain amp  83x–455x (set with potentiometer)
-//    Stage 6 : second 60 Hz notch filter → SIGNAL OUTPUT
-//
-//  The output (tapped between the 22kΩ resistor and 220nF cap in Stage 6)
-//  goes to Arduino A0 instead of the PC sound card.
-// ═══════════════════════════════════════════════════════════════════════════
-
-// ── Brainwave band limits (Hz) ───────────────────────────────────────────────
+// Brainwave band limits (Hz) ───────────────────────────────────────────────
 // This circuit is designed for Alpha (8–12 Hz) and Beta (12–30 Hz) primarily.
 // The 7 Hz HPF cuts Delta/Theta anyway, so those are filtered in hardware.
 #define BAND_ALPHA_LOW_HZ   8
@@ -45,10 +30,10 @@
 #define CLIP_THRESHOLD   500    // ADC counts from midpoint — above = too much gain
 
 
-class EEG_Reader {
+class BrainIO {
 public:
   // Pass the analog pin wired to the circuit's output (e.g. A0)
-  EEG_Reader(uint8_t analogPin);
+  BrainIO(uint8_t analogPin);
 
   void begin();    // Call once in setup()
   int  update();   // Call every loop() — handles timing internally

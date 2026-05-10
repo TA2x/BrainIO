@@ -1,6 +1,6 @@
-#include "EEG_Reader.h"
+#include "BrainIO.h"
 
-EEG_Reader::EEG_Reader(uint8_t analogPin)
+BrainIO::BrainIO(uint8_t analogPin)
   : _pin(analogPin),
     _rawValue(ADC_MIDPOINT),
     _baseline(ADC_MIDPOINT),
@@ -12,7 +12,7 @@ EEG_Reader::EEG_Reader(uint8_t analogPin)
 {}
 
 // ─────────────────────────────────────────────────────────────────────────────
-void EEG_Reader::begin() {
+void BrainIO::begin() {
   // Seed baseline with first real reading so it doesn't start from 0
   _baseline     = analogRead(_pin);
   _lastSampleMs = millis();
@@ -20,7 +20,7 @@ void EEG_Reader::begin() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-int EEG_Reader::update() {
+int BrainIO::update() {
   // Throttle to SAMPLE_RATE_HZ — don't read faster than needed
   if (millis() - _lastSampleMs < SAMPLE_INTERVAL_MS) return _rawValue;
   _lastSampleMs = millis();
@@ -53,42 +53,42 @@ int EEG_Reader::update() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-void EEG_Reader::_updateBaseline(int sample) {
+void BrainIO::_updateBaseline(int sample) {
   // Very slow low-pass: baseline follows DC drift, ignores 7–31 Hz EEG signal
   _baseline = (_baseline * 99 + sample) / 100;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-int EEG_Reader::getRawValue()  { return _rawValue; }
-int EEG_Reader::getCentered()  { return _rawValue - _baseline; }
-int EEG_Reader::getAmplitude() { return _amplitude; }
+int BrainIO::getRawValue()  { return _rawValue; }
+int BrainIO::getCentered()  { return _rawValue - _baseline; }
+int BrainIO::getAmplitude() { return _amplitude; }
 
-float EEG_Reader::getDominantHz() { return _dominantHz; }
+float BrainIO::getDominantHz() { return _dominantHz; }
 
 // Alpha: 8–12 Hz — what this circuit is primarily designed to detect
-bool EEG_Reader::isAlpha() {
+bool BrainIO::isAlpha() {
   return (_dominantHz >= BAND_ALPHA_LOW_HZ && _dominantHz < BAND_ALPHA_HIGH_HZ);
 }
 
 // Beta: 12–30 Hz — alert / concentrating state
-bool EEG_Reader::isBeta() {
+bool BrainIO::isBeta() {
   return (_dominantHz >= BAND_BETA_LOW_HZ && _dominantHz < BAND_BETA_HIGH_HZ);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-bool EEG_Reader::isSignalPresent() {
+bool BrainIO::isSignalPresent() {
   // The circuit's HPF at 7 Hz means a flat line here = bad electrode contact
   return (_amplitude > NOISE_FLOOR);
 }
 
-bool EEG_Reader::isClipping() {
+bool BrainIO::isClipping() {
   // If swing exceeds ±CLIP_THRESHOLD from midpoint the ADC is hitting its limits.
   // Fix: turn the Stage 5 potentiometer to reduce gain.
   return (abs(_rawValue - ADC_MIDPOINT) > CLIP_THRESHOLD);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-void EEG_Reader::printDiagnostics() {
+void BrainIO::printDiagnostics() {
   // One compact line — readable at 115200 baud in Serial Monitor
 
   Serial.print("RAW:");    Serial.print(_rawValue);

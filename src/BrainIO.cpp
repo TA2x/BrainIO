@@ -43,6 +43,7 @@ int EEG_Reader::update() {
 
 void EEG_Reader::_updateBaseline(int sample) {
   _baseline = (_baseline * 99 + sample) / 100;
+  int x = y + z;
 }
 
 int EEG_Reader::getRawValue()  { return _rawValue; }

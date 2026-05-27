@@ -183,6 +183,57 @@ Transform:
   - {fileID: 1448172909}
   m_Father: {fileID: 1063018286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &274464791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 274464793}
+  - component: {fileID: 274464792}
+  m_Layer: 0
+  m_Name: EEGReader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &274464792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274464791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7eae9c91a15a3a408876ccfa1cb3ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  portName: COM3
+  baudRate: 115200
+  raw: 0
+  centered: 0
+  amp: 0
+  hz: 0
+  band: 0
+--- !u!4 &274464793
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274464791}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +560,7 @@ TerrainCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -529,11 +580,11 @@ Terrain:
   m_Enabled: 1
   serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: 3ed2d21b1f9b63a43a1601f7b37512a3, type: 2}
-  m_TreeDistance: 5000
-  m_TreeBillboardDistance: 50
+  m_TreeDistance: 636
+  m_TreeBillboardDistance: 300
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
+  m_DetailObjectDistance: 200
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
@@ -547,8 +598,8 @@ Terrain:
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
   m_MaterialTemplate: {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
-  m_BakeLightProbesForTrees: 1
-  m_PreserveTreePrototypeLayers: 0
+  m_BakeLightProbesForTrees: 0
+  m_PreserveTreePrototypeLayers: 1
   m_DeringLightProbesForTrees: 1
   m_ReceiveGI: 1
   m_ScaleInLightmap: 0.0256
@@ -593,7 +644,7 @@ MonoBehaviour:
   treeTypes:
   - enabled: 1
     name: Fir_01_Plant
-    seed: 1751
+    seed: 70943
     probability: 10
     collisionCheck: 1
     rejectUnderwater: 0
@@ -601,7 +652,7 @@ MonoBehaviour:
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
     layerMasks: []
-    instanceCount: 2300
+    instanceCount: 2275
     prefabs:
     - index: 0
       probability: 60
@@ -611,15 +662,15 @@ MonoBehaviour:
     sinkAmount: 0
   - enabled: 1
     name: Fir_02_Small
-    seed: 3004
+    seed: 35952
     probability: 10
-    collisionCheck: 0
+    collisionCheck: 1
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
     layerMasks: []
-    instanceCount: 2340
+    instanceCount: 2241
     prefabs:
     - index: 1
       probability: 60
@@ -629,15 +680,15 @@ MonoBehaviour:
     sinkAmount: 0
   - enabled: 1
     name: Fir_03_Medium
-    seed: 9757
+    seed: 81909
     probability: 10
-    collisionCheck: 0
+    collisionCheck: 1
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
     curvatureRange: {x: 0, y: 1}
     layerMasks: []
-    instanceCount: 2462
+    instanceCount: 2348
     prefabs:
     - index: 2
       probability: 100
@@ -649,7 +700,7 @@ MonoBehaviour:
     name: Fir_04_Standalone
     seed: 7886
     probability: 10
-    collisionCheck: 0
+    collisionCheck: 1
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
@@ -667,7 +718,7 @@ MonoBehaviour:
     name: Fir_05_Standalone
     seed: 4769
     probability: 10
-    collisionCheck: 0
+    collisionCheck: 1
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
@@ -685,7 +736,7 @@ MonoBehaviour:
     name: Fir_06_Forest
     seed: 1476
     probability: 10
-    collisionCheck: 0
+    collisionCheck: 1
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
@@ -703,7 +754,7 @@ MonoBehaviour:
     name: Fir_07_Forest
     seed: 4901
     probability: 10
-    collisionCheck: 0
+    collisionCheck: 1
     rejectUnderwater: 0
     heightRange: {x: 0, y: 1000}
     slopeRange: {x: 0, y: 60}
@@ -722,7 +773,7 @@ MonoBehaviour:
     drawTreesAndFoliage: 1
     preservePrefabLayer: 1
     treeLightProbes: 0
-    treeDistance: 1000
+    treeDistance: 636
     billboardStart: 300
     maxMeshTrees: 50
     detailScattermode: 0
@@ -739,8 +790,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   terrainMinMaxHeight: {x: -100, y: 2000}
-  detailResolution: 256
-  detailResolutionIndex: 0
+  detailResolution: 512
+  detailResolutionIndex: 2
   grassPatchSize: 128
   grassPatchSizeIndex: 4
   tempColliders: []
@@ -1355,6 +1406,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 274464793}
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1219681351}

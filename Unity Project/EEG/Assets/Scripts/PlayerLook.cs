@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
 {
+    public bool _enabled = true;
+
     PlayerInput input;
 
     [SerializeField] private Transform orientation;
@@ -28,6 +30,8 @@ public class PlayerLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!_enabled) return;
+
         float mouseX = input.Movement.MouseX.ReadValue<float>() * sensitivity;
         float mouseY = input.Movement.MouseY.ReadValue<float>() * sensitivity;
 

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     }
 
     public GameObject player;
+    public Transform playerOrientation;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

@@ -10,10 +10,15 @@ public class SkeletonRunningJumpscare : MonoBehaviour
     [SerializeField] AudioClip[] footsteps;
     [SerializeField] AudioSource footstepsSource;
 
+    private void Start()
+    {
+        transform.rotation = Quaternion.Euler(0f, Random.rotation.eulerAngles.y, 0f);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(GameManager.instance.player.transform);
+        skeleton.LookAt(GameManager.instance.player.transform);
 
         Vector3 targetPos = GameManager.instance.player.transform.position;
         targetPos.y = skeleton.position.y;

@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool _enabled = true;
+
     PlayerInput input;
 
     Rigidbody rb;
@@ -59,6 +61,12 @@ public class PlayerMovement : MonoBehaviour
     float noiseFreq;
     CinemachineBasicMultiChannelPerlin camNoise;
 
+    [Header("Footsteps")]
+    [SerializeField] AudioClip[] footsteps;
+    [SerializeField] AudioSource footstepsSource;
+    [SerializeField] float footstepsTimerVal = 0.35f;
+    float footstepsTimer;
+
     private void Awake()
     {
         input = new PlayerInput();
@@ -79,15 +87,30 @@ public class PlayerMovement : MonoBehaviour
         noiseFreq = camNoise.FrequencyGain;
 
         swayFreq = walkSwayFreq;
+
+        footstepsTimer = footstepsTimerVal;
     }
 
     private void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, whatIsGround);
 
-        GetInput();
-        SpeedControl();
-        SpeedLimit();
+        if (_enabled)
+        {
+            GetInput();
+            SpeedControl();
+            SpeedLimit();
+
+            if (rb.linearVelocity.magnitude > 0 && moveDirection.magnitude > 0)
+            {
+                footstepsTimer -= Time.deltaTime;
+                if (footstepsTimer <= 0)
+                {
+                    PlayFootstep();
+                    footstepsTimer = footstepsTimerVal;
+                }
+            }
+        }
 
         rb.linearDamping = isGrounded ? groundDrag : airDrag;
         rb.useGravity = !OnSlope();
@@ -110,7 +133,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (_enabled)
+            MovePlayer();
     }
 
     void GetInput()
@@ -237,5 +261,11 @@ public class PlayerMovement : MonoBehaviour
     {
         readyToJump = true;
         exitingSlope = false;
+    }
+
+    void PlayFootstep()
+    {
+        footstepsSource.clip = footsteps[Random.Range(0, footsteps.Length)];
+        footstepsSource.Play();
     }
 }

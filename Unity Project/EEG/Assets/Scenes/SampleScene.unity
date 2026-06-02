@@ -947,6 +947,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   jumpscares:
   - {fileID: 7493567180996694282, guid: 5de4836305c619a4d9c1048192fc033c, type: 3}
+  - {fileID: 8440725758029071183, guid: 825d7e254b200dd4784cc195699f9e52, type: 3}
   jumpscareTimerMax: 5
   jumpscareTimerMin: 10
 --- !u!4 &989770035

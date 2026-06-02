@@ -10,14 +10,6 @@ public class SkeletonRunningJumpscare : MonoBehaviour
     [SerializeField] AudioClip[] footsteps;
     [SerializeField] AudioSource footstepsSource;
 
-    [SerializeField] Animator anim;
-    [SerializeField] AnimatorController animController;
-
-    private void Start()
-    {
-        anim.runtimeAnimatorController = animController;
-    }
-
     // Update is called once per frame
     void Update()
     {

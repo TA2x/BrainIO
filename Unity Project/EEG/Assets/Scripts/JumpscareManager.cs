@@ -20,7 +20,7 @@ public class JumpscareManager : MonoBehaviour
         jumpscareTimer -= Time.deltaTime;
         if (jumpscareTimer <= 0f)
         {
-            Instantiate(jumpscares[Random.Range(0, jumpscares.Length)], GameManager.instance.player.transform.position, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
+            Instantiate(jumpscares[Random.Range(0, jumpscares.Length)], GameManager.instance.player.transform.position, Quaternion.Euler(0f, Random.rotation.eulerAngles.y, 0f));
             jumpscareTimer = Random.Range(jumpscareTimerMin, jumpscareTimerMax);
         }
     }

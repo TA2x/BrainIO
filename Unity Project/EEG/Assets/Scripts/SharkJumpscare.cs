@@ -18,7 +18,7 @@ public class SharkJumpscare : MonoBehaviour
         shark.LookAt(GameManager.instance.player.transform);
         transform.position = GameManager.instance.player.transform.position;
 
-        if (GameManager.instance.isVisible(shark.gameObject) && !seen)
+        if (GameManager.instance.isVisible(shark) && !seen)
         {
             GameManager.instance.jumpscarePlaying = false;
             Destroy(gameObject, 1f);

@@ -10,7 +10,13 @@ public class EEGReader : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     [Header("Serial Port")]
@@ -28,6 +34,32 @@ public class EEGReader : MonoBehaviour
     private Thread readThread;
     private volatile bool running;
     private ConcurrentQueue<string> lineQueue = new ConcurrentQueue<string>();
+
+    [Header("Tunable Thresholds")]
+    public float ampSpikeMultiplier = 2.0f;
+    public float varianceThreshold = 50f;
+    public float reactionCooldown = 1.5f;
+
+    [Header("Internal Smoothed Values")]
+    float slowAmp;
+    float fastAmp;
+    float rawVariance;
+    float lastRawValue;
+    float lastReactionTime = -10f;
+
+    public bool ReactionDetected { get; private set; }
+
+    public float ReactionStrength { get; private set; }
+
+    [Header("Composure")]
+    public float composure = 100f;
+    public float regenRate = 8f;
+    public float drainRate = 80f;
+
+    [Header("Calibration")]
+    public bool isCalibrating = false;
+    public float calibratedBaselineAmp;
+    public float calibratedBaselineVariance;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -78,6 +110,34 @@ public class EEGReader : MonoBehaviour
         {
             ParseLine(line.Trim());
         }
+
+        slowAmp = Mathf.Lerp(slowAmp, amp, Time.deltaTime * 0.2f);
+
+        fastAmp = Mathf.Lerp(fastAmp, amp, Time.deltaTime * 5f);
+
+        float delta = Mathf.Abs(raw - lastRawValue);
+        rawVariance = Mathf.Lerp(rawVariance, delta, Time.deltaTime * 3f);
+        lastRawValue = raw;
+
+        float ampRatio = slowAmp > 1f ? fastAmp / slowAmp : 1f;
+        float ampScore = Mathf.Clamp01((ampRatio - 1f) / (ampSpikeMultiplier - 1f));
+        float varScore = Mathf.Clamp01(rawVariance / varianceThreshold);
+        ReactionStrength = Mathf.Max(ampScore, varScore);
+
+        ReactionDetected = false;
+        if (!isCalibrating && ReactionStrength > 0.5f && Time.time - lastReactionTime > reactionCooldown)
+        {
+            ReactionDetected = true;
+            lastReactionTime = Time.time;
+            Debug.Log($"REACTION: strength={ReactionStrength:F2} fast={fastAmp:F1} slow={slowAmp:F1} var={rawVariance:F1}");
+        }
+
+        if (!isCalibrating)
+        {
+            composure -= ReactionStrength * drainRate * Time.deltaTime;
+            composure += regenRate * Time.deltaTime;
+            composure = Mathf.Clamp(composure, 0f, 100f);
+        }
     }
 
     private void ParseLine(string line)
@@ -111,5 +171,19 @@ public class EEGReader : MonoBehaviour
         {
             serial.Close();
         }
+    }
+
+    public void StartCalibration()
+    {
+        isCalibrating = true;
+    }
+
+    public void FinishCalibration()
+    {
+        isCalibrating = false;
+        calibratedBaselineAmp = slowAmp;
+        calibratedBaselineVariance = rawVariance;
+        composure = 100f;
+        Debug.Log($"Calibration done. Baseline amp={calibratedBaselineAmp:F1} var={calibratedBaselineVariance:F1}");
     }
 }

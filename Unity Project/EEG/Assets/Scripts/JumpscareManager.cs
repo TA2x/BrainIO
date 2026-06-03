@@ -17,7 +17,7 @@ public class JumpscareManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.jumpscarePlaying) return;
+        if (GameManager.instance.jumpscarePlaying || GameManager.instance.gameEnded) return;
 
         jumpscareTimer -= Time.deltaTime;
         if (jumpscareTimer <= 0f)

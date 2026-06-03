@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -12,6 +13,10 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public Transform playerOrientation;
 
+    public Camera cam;
+
+    public bool jumpscarePlaying = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,5 +27,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public bool isVisible(GameObject target)
+    {
+        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(cam);
+        return planes.All(p => p.GetDistanceToPoint(target.transform.position) >= 0);
     }
 }

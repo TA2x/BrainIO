@@ -22,6 +22,7 @@ public class BreathingJumpscare : MonoBehaviour
         GameManager.instance.player.GetComponent<PlayerMovement>()._enabled = false;
         GameManager.instance.player.GetComponent<PlayerLook>()._enabled = false;
         transform.rotation = Quaternion.Euler(transform.rotation.x, GameManager.instance.playerOrientation.rotation.eulerAngles.y, transform.rotation.z);
+        GameManager.instance.jumpscarePlaying = true;
     }
 
     // Update is called once per frame
@@ -56,7 +57,7 @@ public class BreathingJumpscare : MonoBehaviour
             }
         }
 
-        if (Vector3.Distance(figure.position, targetPos) <= 1.5f) breath = true;
+        if (Vector3.Distance(figure.position, targetPos) <= 3f) breath = true;
     }
 
     void PlayFootstep()
@@ -74,6 +75,7 @@ public class BreathingJumpscare : MonoBehaviour
 
         GameManager.instance.player.GetComponent<PlayerMovement>()._enabled = true;
         GameManager.instance.player.GetComponent<PlayerLook>()._enabled = true;
+        GameManager.instance.jumpscarePlaying = false;
         Destroy(gameObject);
     }
 }

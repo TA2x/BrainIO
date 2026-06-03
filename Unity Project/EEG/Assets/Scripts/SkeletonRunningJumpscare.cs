@@ -13,6 +13,7 @@ public class SkeletonRunningJumpscare : MonoBehaviour
     private void Start()
     {
         transform.rotation = Quaternion.Euler(0f, Random.rotation.eulerAngles.y, 0f);
+        GameManager.instance.jumpscarePlaying = true;
     }
 
     // Update is called once per frame
@@ -37,7 +38,11 @@ public class SkeletonRunningJumpscare : MonoBehaviour
             Invoke(nameof(PlayFootstep), footstepsSpeed);
         }
 
-        if (Vector3.Distance(skeleton.position, targetPos) <= 1f) Destroy(gameObject);
+        if (Vector3.Distance(skeleton.position, targetPos) <= 1f) 
+        {
+            GameManager.instance.jumpscarePlaying = false;
+            Destroy(gameObject); 
+        }
     }
 
     void PlayFootstep()

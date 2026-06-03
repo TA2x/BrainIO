@@ -9,6 +9,7 @@ public class StandingFigureJumpscare : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        GameManager.instance.jumpscarePlaying = true;
         transform.rotation = Quaternion.Euler(0f, Random.rotation.eulerAngles.y, 0f);
 
         if (Physics.Raycast(figure.position + Vector3.up * 2f, Vector3.down, out RaycastHit hit, 10f))
@@ -26,11 +27,12 @@ public class StandingFigureJumpscare : MonoBehaviour
     {
         figure.LookAt(GameManager.instance.player.transform);
 
-        if (Vector3.Distance(figure.position, GameManager.instance.player.transform.position) <= 3f) Destroy(gameObject);
+        if (Vector3.Distance(figure.position, GameManager.instance.player.transform.position) <= 3f) DestroyAfterTime();
     }
 
     void DestroyAfterTime()
     {
+        GameManager.instance.jumpscarePlaying = false;
         Destroy(gameObject);
     }
 }

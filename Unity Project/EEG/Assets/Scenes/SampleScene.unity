@@ -763,6 +763,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   player: {fileID: 1063018285}
   playerOrientation: {fileID: 26174216}
+  cam: {fileID: 330585545}
+  jumpscarePlaying: 0
 --- !u!4 &823590658
 Transform:
   m_ObjectHideFlags: 0
@@ -950,6 +952,7 @@ MonoBehaviour:
   - {fileID: 7493567180996694282, guid: 5de4836305c619a4d9c1048192fc033c, type: 3}
   - {fileID: 8440725758029071183, guid: 825d7e254b200dd4784cc195699f9e52, type: 3}
   - {fileID: 3968443817861187019, guid: 51fbb7f95a78594489ae64c0ea0dbb0b, type: 3}
+  - {fileID: 90457906184645267, guid: e713b6057005c9a43b7e5bf3aa19cd52, type: 3}
   jumpscareTimerMax: 15
   jumpscareTimerMin: 20
 --- !u!4 &989770035

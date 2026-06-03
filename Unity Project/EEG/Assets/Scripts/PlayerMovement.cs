@@ -40,13 +40,14 @@ public class PlayerMovement : MonoBehaviour
     bool exitingSlope;
 
     [Header("Crouch")]
+    [SerializeField] private bool canCrouch = true;
     [SerializeField] private Transform gfx;
     [SerializeField] private float crouchHeight;
     bool isCrouching = false;
 
     [Header("Jump")]
-    [SerializeField] private float jumpForce = 15f;
     [SerializeField] private bool canJump = true;
+    [SerializeField] private float jumpForce = 15f;
     [SerializeField] private float jumpCooldown = 0.2f;
     bool readyToJump = true;
 
@@ -226,6 +227,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Crouch(InputAction.CallbackContext callbackContext)
     {
+        if (!canCrouch) return;
+
         gfx.localScale = new Vector3(gfx.localScale.x, crouchHeight, gfx.localScale.z);
         rb.AddForce(Vector3.down * 8f, ForceMode.Impulse);
         playerHeight = crouchHeight * 2f;
@@ -235,6 +238,8 @@ public class PlayerMovement : MonoBehaviour
     
     void UnCrouch(InputAction.CallbackContext callbackContext)
     {
+        if (!canCrouch) return;
+
         playerHeight = startHeight;
         gfx.localScale = new Vector3(gfx.localScale.x, playerHeight * 0.5f, gfx.localScale.z);
         swayFreq = walkSwayFreq;

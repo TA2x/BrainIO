@@ -15,7 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
   m_Fog: 1
-  m_FogColor: {r: 0.16107218, g: 0.18344331, b: 0.21700001, a: 1}
+  m_FogColor: {r: 0.089378, g: 0.10850172, b: 0.134, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.05
   m_LinearFogStart: 0
@@ -579,11 +579,11 @@ Terrain:
   m_Enabled: 1
   serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: 3ed2d21b1f9b63a43a1601f7b37512a3, type: 2}
-  m_TreeDistance: 636
+  m_TreeDistance: 1000
   m_TreeBillboardDistance: 300
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 200
+  m_DetailObjectDistance: 20
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
@@ -1016,8 +1016,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   _enabled: 1
-  walkSpeed: 4
-  crouchSpeed: 2
+  walkSpeed: 3.5
+  crouchSpeed: 1.5
   moveMultiplier: 10
   airMultiplier: 0.4
   orientation: {fileID: 26174216}
@@ -1031,10 +1031,11 @@ MonoBehaviour:
     m_Bits: 8
   maxSlopeAngle: 60
   slopeDownForce: 80
+  canCrouch: 1
   gfx: {fileID: 1448172909}
   crouchHeight: 0.5
-  jumpForce: 15
   canJump: 0
+  jumpForce: 15
   jumpCooldown: 0.2
   cinemachineCamera: {fileID: 771595381}
   head: {fileID: 2127843835}
@@ -1093,7 +1094,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 97b97fae0b55ce141bff2005c510492e, type: 3}
   - {fileID: 8300000, guid: 96860d4e7cdc1f746906da7b7bc7a388, type: 3}
   footstepsSource: {fileID: 1063018290}
-  footstepsTimerVal: 0.35
+  footstepsTimerVal: 0.6
 --- !u!54 &1063018288
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1150,7 +1151,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.7
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -67,18 +67,18 @@ bool BrainIO::isClipping() {
 }
 
 void BrainIO::printDiagnostics() {
-  Serial.print("RAW:");    Serial.print(_rawValue);
-  Serial.print("  CTR:");  Serial.print(getCentered());
-  Serial.print("  AMP:");  Serial.print(_amplitude);
-  Serial.print("  Hz~");   Serial.print(_dominantHz, 1);
+  Serial.print("RAW:"); Serial.print(_rawValue);
+  Serial.print("  CTR:"); Serial.print(getCentered());
+  Serial.print("  AMP:"); Serial.print(_amplitude);
+  Serial.print("  Hz~"); Serial.print(_dominantHz, 1);
   Serial.print("  Band:");
 
-  if      (isAlpha()) Serial.print("ALPHA");
+  if (isAlpha()) Serial.print("ALPHA");
   else if (isBeta())  Serial.print("BETA ");
-  else                Serial.print("--   ");
+  else Serial.print("--   ");
 
   if (!isSignalPresent()) Serial.print("  [NO SIGNAL]");
-  if (isClipping())       Serial.print("  [CLIPPING]");
+  if (isClipping()) Serial.print("  [CLIPPING]");
   if (isSignalPresent() && !isClipping()) Serial.print("  [OK]");
 
   Serial.println();

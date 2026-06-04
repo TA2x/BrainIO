@@ -15,8 +15,6 @@ public class GameManager : MonoBehaviour
 
     public Camera cam;
 
-    public bool jumpscarePlaying = false;
-
     [SerializeField] private float gameLengthInSeconds = 600f;
     float gameTimer;
     public bool gameEnded = false;

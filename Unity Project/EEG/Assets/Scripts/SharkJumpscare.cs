@@ -8,7 +8,6 @@ public class SharkJumpscare : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameManager.instance.jumpscarePlaying = true;
         transform.rotation = GameManager.instance.playerOrientation.rotation;
     }
 
@@ -20,7 +19,6 @@ public class SharkJumpscare : MonoBehaviour
 
         if (GameManager.instance.isVisible(shark) && !seen)
         {
-            GameManager.instance.jumpscarePlaying = false;
             Destroy(gameObject, 1f);
         }
     }

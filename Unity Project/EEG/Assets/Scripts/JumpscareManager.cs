@@ -8,6 +8,8 @@ public class JumpscareManager : MonoBehaviour
     [SerializeField] float jumpscareTimerMin;
     float jumpscareTimer;
 
+    [SerializeField] string previousJumpscareName = "";
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,12 +19,20 @@ public class JumpscareManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.jumpscarePlaying || GameManager.instance.gameEnded) return;
+        if (GameManager.instance.gameEnded) return;
 
         jumpscareTimer -= Time.deltaTime;
         if (jumpscareTimer <= 0f)
         {
-            Instantiate(jumpscares[Random.Range(0, jumpscares.Length)], GameManager.instance.player.transform.position, Quaternion.identity);
+            int random = Random.Range(0, jumpscares.Length);
+            while (jumpscares[random].name == previousJumpscareName)
+            {
+                random = Random.Range(0, jumpscares.Length);
+            }
+
+            GameObject jumpscare = Instantiate(jumpscares[random], GameManager.instance.player.transform.position, Quaternion.identity);
+            jumpscare.name = jumpscares[random].name;
+            previousJumpscareName = jumpscare.name;
             jumpscareTimer = Random.Range(jumpscareTimerMin, jumpscareTimerMax);
         }
     }

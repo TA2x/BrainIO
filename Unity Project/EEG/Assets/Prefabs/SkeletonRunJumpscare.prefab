@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   skeleton: {fileID: 1344065174963842375}
-  speed: 20
+  speed: 18
   footstepsSpeed: 0.2
   footsteps:
   - {fileID: 8300000, guid: 9a30499e47789df48aa9bdb1ec7b0982, type: 3}
@@ -65,8 +65,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b04914b5801123b4dafba88cbcb5bc74, type: 3}
   - {fileID: 8300000, guid: 3ec9ef3892d02044a9d62e412eb45ffb, type: 3}
   footstepsSource: {fileID: 8146999941255493988}
-  anim: {fileID: 4919963735491917629}
-  animController: {fileID: 9100000, guid: f6ae1f3a3b27f474f803c3407c0b2522, type: 2}
 --- !u!1001 &1526066453794261676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85,7 +83,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4b9cc05035192b64f90b2851334e619b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -50
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4b9cc05035192b64f90b2851334e619b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -238,8 +236,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &4919963735491917629 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 4b9cc05035192b64f90b2851334e619b, type: 3}
-  m_PrefabInstance: {fileID: 1526066453794261676}
-  m_PrefabAsset: {fileID: 0}

@@ -480,6 +480,52 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &411756147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 411756148}
+  - component: {fileID: 411756149}
+  m_Layer: 3
+  m_Name: WindZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &411756148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411756147}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.18730527, z: -0, w: 0.9823018}
+  m_LocalPosition: {x: 500, y: 89, z: 500}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 476161355}
+  m_LocalEulerAnglesHint: {x: 0, y: 21.591, z: 0}
+--- !u!182 &411756149
+WindZone:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411756147}
+  m_Enabled: 1
+  m_Mode: 0
+  m_Radius: 20
+  m_WindMain: 1
+  m_WindTurbulence: 1
+  m_WindPulseMagnitude: 0.5
+  m_WindPulseFrequency: 0.01
 --- !u!1 &476161352
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,7 +616,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 411756148}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &771595379
@@ -691,6 +738,7 @@ GameObject:
   m_Component:
   - component: {fileID: 823590658}
   - component: {fileID: 823590657}
+  - component: {fileID: 823590659}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -713,7 +761,6 @@ MonoBehaviour:
   player: {fileID: 1063018285}
   playerOrientation: {fileID: 26174216}
   cam: {fileID: 330585545}
-  jumpscarePlaying: 0
   gameLengthInSeconds: 600
   gameEnded: 0
 --- !u!4 &823590658
@@ -731,6 +778,103 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &823590659
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823590656}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 40361821d079edb409c5fc1668c8f24b, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.15
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,6 +1024,7 @@ GameObject:
   m_Component:
   - component: {fileID: 989770035}
   - component: {fileID: 989770034}
+  - component: {fileID: 989770036}
   m_Layer: 0
   m_Name: JumpscareManager
   m_TagString: Untagged
@@ -904,10 +1049,9 @@ MonoBehaviour:
   - {fileID: 8440725758029071183, guid: 825d7e254b200dd4784cc195699f9e52, type: 3}
   - {fileID: 3968443817861187019, guid: 51fbb7f95a78594489ae64c0ea0dbb0b, type: 3}
   - {fileID: 90457906184645267, guid: e713b6057005c9a43b7e5bf3aa19cd52, type: 3}
-  - {fileID: 6422805959465379022, guid: 59d2118d1169182459dbbae03ab49449, type: 3}
-  - {fileID: 5534044026494968538, guid: 5afbc7b024ae180488e258093e7d210e, type: 3}
   jumpscareTimerMax: 15
-  jumpscareTimerMin: 20
+  jumpscareTimerMin: 30
+  previousJumpscareName: 
 --- !u!4 &989770035
 Transform:
   m_ObjectHideFlags: 0
@@ -923,6 +1067,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &989770036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989770033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fd98c948ce2daa45a2c6fde05324bce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JumpscareManager
+  jumpscares:
+  - {fileID: 6422805959465379022, guid: 59d2118d1169182459dbbae03ab49449, type: 3}
+  - {fileID: 5534044026494968538, guid: 5afbc7b024ae180488e258093e7d210e, type: 3}
+  jumpscareTimerMax: 30
+  jumpscareTimerMin: 60
+  previousJumpscareName: 
 --- !u!1 &1063018285
 GameObject:
   m_ObjectHideFlags: 0

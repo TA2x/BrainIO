@@ -18,9 +18,9 @@
 #define NOISE_FLOOR      8
 #define CLIP_THRESHOLD   500
 
-class EEG_Reader {
+class BrainIO {
 public:
-  EEG_Reader(uint8_t analogPin);
+  BrainIO(uint8_t analogPin);
 
   void begin();
   int  update();

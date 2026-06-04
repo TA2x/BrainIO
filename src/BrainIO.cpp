@@ -1,6 +1,6 @@
 #include "BrainIO.h"
 
-EEG_Reader::EEG_Reader(uint8_t analogPin)
+BrainIO::BrainIO(uint8_t analogPin)
 : _pin(analogPin),
 _rawValue(ADC_MIDPOINT),
 _baseline(ADC_MIDPOINT),
@@ -11,13 +11,13 @@ _dominantHz(0),
 _lastSampleMs(0)
 {}
 
-void EEG_Reader::begin() {
+void BrainIO::begin() {
   _baseline     = analogRead(_pin);
   _lastSampleMs = millis();
   _lastSecondMs = millis();
 }
 
-int EEG_Reader::update() {
+int BrainIO::update() {
   if (millis() - _lastSampleMs < SAMPLE_INTERVAL_MS) return _rawValue;
   _lastSampleMs = millis();
 
@@ -41,32 +41,32 @@ int EEG_Reader::update() {
   return _rawValue;
 }
 
-void EEG_Reader::_updateBaseline(int sample) {
+void BrainIO::_updateBaseline(int sample) {
   _baseline = (_baseline * 99 + sample) / 100;
 }
 
-int EEG_Reader::getRawValue()  { return _rawValue; }
-int EEG_Reader::getCentered()  { return _rawValue - _baseline; }
-int EEG_Reader::getAmplitude() { return _amplitude; }
-float EEG_Reader::getDominantHz() { return _dominantHz; }
+int BrainIO::getRawValue()  { return _rawValue; }
+int BrainIO::getCentered()  { return _rawValue - _baseline; }
+int BrainIO::getAmplitude() { return _amplitude; }
+float BrainIO::getDominantHz() { return _dominantHz; }
 
-bool EEG_Reader::isAlpha() {
+bool BrainIO::isAlpha() {
   return (_dominantHz >= BAND_ALPHA_LOW_HZ && _dominantHz < BAND_ALPHA_HIGH_HZ);
 }
 
-bool EEG_Reader::isBeta() {
+bool BrainIO::isBeta() {
   return (_dominantHz >= BAND_BETA_LOW_HZ && _dominantHz < BAND_BETA_HIGH_HZ);
 }
 
-bool EEG_Reader::isSignalPresent() {
+bool BrainIO::isSignalPresent() {
   return (_amplitude > NOISE_FLOOR);
 }
 
-bool EEG_Reader::isClipping() {
+bool BrainIO::isClipping() {
   return (abs(_rawValue - ADC_MIDPOINT) > CLIP_THRESHOLD);
 }
 
-void EEG_Reader::printDiagnostics() {
+void BrainIO::printDiagnostics() {
   Serial.print("RAW:");    Serial.print(_rawValue);
   Serial.print("  CTR:");  Serial.print(getCentered());
   Serial.print("  AMP:");  Serial.print(_amplitude);

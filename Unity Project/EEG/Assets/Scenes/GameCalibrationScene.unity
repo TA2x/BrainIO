@@ -127,6 +127,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 828731540963887607, guid: 5428ff1f33b100045a70d62920c4e9b6, type: 3}
+      propertyPath: portName
+      value: COM8
+      objectReference: {fileID: 0}
+    - target: {fileID: 828731540963887607, guid: 5428ff1f33b100045a70d62920c4e9b6, type: 3}
+      propertyPath: drainRate
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 828731540963887607, guid: 5428ff1f33b100045a70d62920c4e9b6, type: 3}
+      propertyPath: regenRate
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 828731540963887607, guid: 5428ff1f33b100045a70d62920c4e9b6, type: 3}
+      propertyPath: isCalibrating
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 828731540963887607, guid: 5428ff1f33b100045a70d62920c4e9b6, type: 3}
+      propertyPath: calmHzThreshold
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 828731540963887607, guid: 5428ff1f33b100045a70d62920c4e9b6, type: 3}
+      propertyPath: varianceThreshold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 828731540963887607, guid: 5428ff1f33b100045a70d62920c4e9b6, type: 3}
+      propertyPath: ampSpikeMultiplier
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 828731540963887607, guid: 5428ff1f33b100045a70d62920c4e9b6, type: 3}
+      propertyPath: reactionHzThreshold
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 2679222924503841793, guid: 5428ff1f33b100045a70d62920c4e9b6, type: 3}
       propertyPath: m_Name
       value: EEGReader

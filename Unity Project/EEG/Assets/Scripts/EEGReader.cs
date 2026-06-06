@@ -35,20 +35,19 @@ public class EEGReader : MonoBehaviour
     private volatile bool running;
     private ConcurrentQueue<string> lineQueue = new ConcurrentQueue<string>();
 
-    [Header("Tunable Thresholds")]
-    public float ampSpikeMultiplier = 2.0f;
-    public float varianceThreshold = 50f;
+    [Header("Hz-Based Detection")]
+    public float calmHzThreshold = 8f;
+    public float reactionHzThreshold = 18f;
+    public float hzSmoothingSpeed = 4f;
+    public float hzHoldTime = 0.4f;
     public float reactionCooldown = 1.5f;
 
-    [Header("Internal Smoothed Values")]
-    float slowAmp;
-    float fastAmp;
-    float rawVariance;
-    float lastRawValue;
+    [Header("Hz State (read-only)")]
+    public float smoothedHz;
+    public float timeAboveCalm;
     float lastReactionTime = -10f;
 
     public bool ReactionDetected { get; private set; }
-
     public float ReactionStrength { get; private set; }
 
     [Header("Composure")]
@@ -58,10 +57,8 @@ public class EEGReader : MonoBehaviour
 
     [Header("Calibration")]
     public bool isCalibrating = false;
-    public float calibratedBaselineAmp;
-    public float calibratedBaselineVariance;
+    public float calibratedBaselineHz;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         try
@@ -94,9 +91,7 @@ public class EEGReader : MonoBehaviour
                     lineQueue.Enqueue(line);
                 }
             }
-            catch (TimeoutException)
-            {
-            }
+            catch (TimeoutException) { }
             catch (Exception e)
             {
                 Debug.LogWarning($"Serial read error: {e.Message}");
@@ -111,25 +106,32 @@ public class EEGReader : MonoBehaviour
             ParseLine(line.Trim());
         }
 
-        slowAmp = Mathf.Lerp(slowAmp, amp, Time.deltaTime * 0.2f);
+        if (hz < 1f)
+        {
+            ReactionDetected = false;
+            return;
+        }
 
-        fastAmp = Mathf.Lerp(fastAmp, amp, Time.deltaTime * 5f);
+        smoothedHz = Mathf.Lerp(smoothedHz, hz, Time.deltaTime * hzSmoothingSpeed);
 
-        float delta = Mathf.Abs(raw - lastRawValue);
-        rawVariance = Mathf.Lerp(rawVariance, delta, Time.deltaTime * 3f);
-        lastRawValue = raw;
+        if (smoothedHz > calmHzThreshold)
+            timeAboveCalm += Time.deltaTime;
+        else
+            timeAboveCalm = 0f;
 
-        float ampRatio = slowAmp > 1f ? fastAmp / slowAmp : 1f;
-        float ampScore = Mathf.Clamp01((ampRatio - 1f) / (ampSpikeMultiplier - 1f));
-        float varScore = Mathf.Clamp01(rawVariance / varianceThreshold);
-        ReactionStrength = Mathf.Max(ampScore, varScore);
+        ReactionStrength = Mathf.Clamp01(
+            (smoothedHz - calmHzThreshold) / (reactionHzThreshold - calmHzThreshold)
+        );
 
         ReactionDetected = false;
-        if (!isCalibrating && ReactionStrength > 0.5f && Time.time - lastReactionTime > reactionCooldown)
+        if (!isCalibrating
+            && ReactionStrength > 0.5f
+            && timeAboveCalm >= hzHoldTime
+            && Time.time - lastReactionTime > reactionCooldown)
         {
             ReactionDetected = true;
             lastReactionTime = Time.time;
-            Debug.Log($"REACTION: strength={ReactionStrength:F2} fast={fastAmp:F1} slow={slowAmp:F1} var={rawVariance:F1}");
+            Debug.Log($"REACTION: hz={smoothedHz:F1} strength={ReactionStrength:F2}");
         }
 
         if (!isCalibrating)
@@ -181,9 +183,8 @@ public class EEGReader : MonoBehaviour
     public void FinishCalibration()
     {
         isCalibrating = false;
-        calibratedBaselineAmp = slowAmp;
-        calibratedBaselineVariance = rawVariance;
+        calibratedBaselineHz = smoothedHz;
         composure = 100f;
-        Debug.Log($"Calibration done. Baseline amp={calibratedBaselineAmp:F1} var={calibratedBaselineVariance:F1}");
+        Debug.Log($"Calibration done. Baseline Hz={calibratedBaselineHz:F1}");
     }
 }

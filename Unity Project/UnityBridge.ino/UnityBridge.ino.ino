@@ -1,8 +1,8 @@
-#include "EEG_Reader.h"
+#include "BrainIO.h"
 
 // Circuit output wire → Arduino A0
 // (This is where the audio jack tip would go in the original guide — Step 8)
-EEG_Reader eeg(A0);
+BrainIO eeg(A0);
 
 #define PRINT_EVERY_MS 20   // how often to print (ms) — not too fast to read
 

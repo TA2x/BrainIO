@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     float gameTimer;
     public bool gameEnded = false;
 
+    [SerializeField] GameObject winMenu;
+    [SerializeField] GameObject loseMenu;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,11 +37,21 @@ public class GameManager : MonoBehaviour
             if (gameTimer <= 0f)
             {
                 Debug.Log("You Win!");
+                winMenu.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                player.GetComponent<PlayerMovement>()._enabled = false;
+                player.GetComponent<PlayerLook>()._enabled = false;
                 gameEnded = true;
             }
             else if (EEGReader.Instance.composure <= 0f)
             {
                 Debug.Log("You Lose!");
+                loseMenu.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                player.GetComponent<PlayerMovement>()._enabled = false;
+                player.GetComponent<PlayerLook>()._enabled = false;
                 gameEnded = true;
             }
         }

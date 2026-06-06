@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public bool _enabled = true;
 
-    PlayerInput input;
+    public PlayerInput input;
 
     Rigidbody rb;
 
